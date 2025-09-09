@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alleyah I. Piga - Personal Website</title>
+  
+  <!-- Font Awesome for social icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #7f7fff, #bb66ff);
+      color: #222;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    header, nav, footer {
+      flex-shrink: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    header {
+      background-color: #4b0082;
+      color: #fff;
+      padding: 15px 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+    }
+
+    nav {
+      background-color: #6a5acd;
+      padding: 10px 0;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: #ffddff;
+      outline: none;
+    }
+
+    main {
+      flex-grow: 1;
+      width: 90%;
+      max-width: 900px;
+      margin: 15px auto;
+      position: relative;
+      display: flex;
+      justify-content: center; /* center horizontally */
+      align-items: center;     /* center vertically */
+      min-height: 0;
+    }
+
+    /* All sections stacked on top of each other */
+    main section {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.9);
+      border-radius: 12px;
+      padding: 30px 40px;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Visible section */
+    main section.active {
+      opacity: 1;
+      pointer-events: auto;
+      position: relative;
+      top: auto; left: auto; right: auto; bottom: auto;
+      height: auto;
+      max-height: 70vh; /* limit height so footer remains visible */
+      overflow-y: auto;
+    }
+
+    /* Front page: center content vertically and horizontally */
+    #front-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 0 15px #6a5acd88;
+      height: 400px;
+    }
+
+    #front-page img {
+      border-radius: 50%;
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      box-shadow: 0 0 15px #6a5acd88;
+      margin-bottom: 25px;
+    }
+
+    #front-page h1 {
+      font-size: 2.8rem;
+      color: #4b0082;
+      text-shadow: 1px 1px 4px #bb66ffaa;
+      text-align: center;
+    }
+
+    /* Content sections */
+    main section h3 {
+      color: #4b0082;
+      border-bottom: 2px solid #bb66ff;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+      width: 100%;
+      text-align: left;
+    }
+
+    main section img.section-img {
+      border-radius: 50%;
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      box-shadow: 0 0 10px #6a5acd88;
+      margin-bottom: 20px;
+    }
+
+    main section p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #333;
+      max-width: 800px;
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    footer {
+      background-color: #4b0082;
+      color: white;
+      padding: 12px 0;
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 18px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.8rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover,
+    .social-icons a:focus {
+      color: #ffddff;
+      outline: none;
+    }
+
+    /* Scrollbar styling */
+    main section::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    main section::-webkit-scrollbar-track {
+      background: #ddd;
+      border-radius: 10px;
+    }
+
+    main section::-webkit-scrollbar-thumb {
+      background: #6a5acd;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Alleyah I. Piga
+  </header>
+
+  <nav>
+    <a data-target="front-page" class="active">Home</a>
+    <a data-target="about">About Me</a>
+    <a data-target="family">Family</a>
+    <a data-target="friends">Friends</a>
+    <a data-target="hobbies">Hobbies</a>
+    <a data-target="school">School</a>
+  </nav>
+
+  <main>
+    <!-- FRONT PAGE -->
+    <section id="front-page" class="active" tabindex="0" aria-label="Front page">
+      <img src="d46dd4ea-dc48-40ce-bd9d-566373339d7b.jpg" alt="Alleyah I. Piga's photo" />
+      <h1>Welcome to My Website</h1>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" tabindex="0" aria-label="About Me">
+      <h3>About Me</h3>
+      <p>
+        My name is Alleyah I. Piga. I am 15 years old and I was born on May 1, 2010. I live in Tacurong City, Barangay Buenaflor, Province of Sultan Rudarat.
+        I enjoy reading books sometimes like the 48 Laws by Robert Greene and listening to music whenever I am sad, happy or bored.
+        Two things that make me unique are my love for singing and my love for learning new things every day because I am ready to learn.
+        I also enjoy spending time being alone to get to know more about myself.
+      </p>
+    </section>
+
+    <!-- FAMILY -->
+    <section id="family" tabindex="0" aria-label="Family">
+      <h3>Family</h3>
+      <img src="0b792161-211a-4531-9a77-02bc97a98eca.jpg" alt="Family Photo" class="section-img" />
+      <p>
+        I live in a happy family home with my family. My father's name is Jaypee B. Piga, and he works as a soldier. He is a loving, caring, and responsible father; he is the best father in the world.
+        He was my first protector, on and off the battlefield. My mother's name is Shirley May I. Piga, and she is a pharmacist. She is my locked-in best friend; she taught me how to be brave and independent.
+        I love my mom so much. I have two siblings, Chemaphy and Dione. They are special in my life because they make me happy every day.
+        I am blessed because I have them, even though they get on my nerves sometimes.
+        We love spending time together, especially during weekends. Our favorite bonding activity is watching cinema or going on a family picnic like eating samgyup.
+        My family is my everything and the biggest source of my strength and inspiration.
+      </p>
+    </section>
+
+    <!-- FRIENDS -->
+    <section id="friends" tabindex="0" aria-label="Friends">
+      <h3>Friends</h3>
+      <img src="6f3e2620-0e0b-4099-9cff-d7e28c158d65.jpg" alt="Friends Photo" class="section-img" />
+      <p>
+        I have many friends, but my closest ones are Vinesse, Vienne, and Carlo. They are very special to me because they are always there when I need them.
+        We love to play and laugh together. I am thankful to have such loyal and fun friends.
+      </p>
+    </section>
+
+    <!-- HOBBIES -->
+    <section id="hobbies" tabindex="0" aria-label="Hobbies">
+      <h3>Interest & Hobbies</h3>
+      <p>
+        Some of my favorite hobbies include reading and singing.
+        I also enjoy watching Chinese and Korean dramas.
+        I am interested in learning how to cook and bake.
+        When I grow up, I want to be a lawyer winning someone's freedom, and I hope my hobbies will help me prepare for it.
+        Doing the things I love makes me feel better and relaxed.
+      </p>
+    </section>
+
+    <!-- SCHOOL -->
+    <section id="school" tabindex="0" aria-label="School">
+      <h3>School</h3>
+      <p>
+        I go to Notre Dame of Tacurong College, which is in Tacurong City. I am currently in 10th grade.
+        My classmates are fun, kind, and friendly.
+        My favorite subjects are English and Music because I love reading and listening to music.
+        My teachers are kind and patient but strict at the same time.
+        My class schedule is usually from 7:30 AM to 4:00 PM.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Contact me:</p>
+    <div class="social-icons">
+      <a href="https://facebook.com/yourprofile" target="_blank" aria-label="Facebook" rel="noopener noreferrer">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://youtube.com/yourchannel" target="_blank" aria-label="YouTube" rel="noopener noreferrer">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://instagram.com/yourprofile" target="_blank" aria-label="Instagram" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://tiktok.com/@yourprofile" target="_blank" aria-label="TikTok" rel="noopener noreferrer">
+        <i class="fab fa-tiktok"></i>
+      </a>
+      <a href="mailto:youremail@example.com" aria-label="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('main section');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const targetId = link.getAttribute('data-target');
+
+        // Remove active class from all nav links and sections
+        navLinks.forEach(l => l.classList.remove('active'));
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        // Add active class to clicked nav link and corresponding section
+        link.classList.add('active');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.classList.add('active');
+          targetSection.focus();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
